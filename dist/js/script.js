@@ -170,30 +170,43 @@ document.addEventListener('DOMContentLoaded', () => {
         modal = document.querySelector('.modal'),
         modalClose = document.querySelector('[data-close]');
   modalBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      modal.classList.add('show');
-      modal.classList.remove('hide');
-      document.body.style.overflow = 'hidden';
-    });
+    btn.addEventListener('click', openModal);
   });
 
-  function closeWindow() {
+  function openModal() {
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+    clearInterval(timeInterval);
+  }
+
+  function closeModal() {
     modal.classList.add('hide');
     modal.classList.remove('show');
     document.body.style.overflow = '';
   }
 
-  modalClose.addEventListener('click', closeWindow);
+  modalClose.addEventListener('click', closeModal);
   modal.addEventListener('click', e => {
     if (e.target === modal) {
-      closeWindow();
+      closeModal();
     }
   });
   document.addEventListener('keydown', key => {
     if (key.code === 'Escape' && modal.classList.contains('show')) {
-      closeWindow();
+      closeModal();
     }
   });
+  const timeInterval = setInterval(openModal, 5000);
+
+  function checker() {
+    if (document.documentElement.clientHeight + window.pageYOffset >= document.documentElement.scrollHeight) {
+      openModal();
+      window.removeEventListener('scroll', checker);
+    }
+  }
+
+  window.addEventListener('scroll', checker);
 });
 
 /***/ })
