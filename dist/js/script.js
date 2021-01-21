@@ -100,14 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function hideContent() {
     tabsContent.forEach(item => {
-      item.classList.remove('tabcontent_active', 'fade');
-      item.classList.add('tabcontent_hide');
+      item.classList.remove('show', 'fade');
+      item.classList.add('hide');
     });
   }
 
   function showContent(i = 0) {
-    tabsContent[i].classList.remove('tabcontent_hide');
-    tabsContent[i].classList.add('tabcontent_active', 'fade');
+    tabsContent[i].classList.remove('hide');
+    tabsContent[i].classList.add('show', 'fade');
   }
 
   hideContent();
@@ -166,6 +166,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   setClock();
+  const modalBtns = document.querySelectorAll('[data-modal]'),
+        modal = document.querySelector('.modal'),
+        modalClose = document.querySelector('[data-close]');
+  modalBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.add('show');
+      modal.classList.remove('hide');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeWindow() {
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+    document.body.style.overflow = '';
+  }
+
+  modalClose.addEventListener('click', closeWindow);
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      closeWindow();
+    }
+  });
+  document.addEventListener('keydown', key => {
+    if (key.code === 'Escape' && modal.classList.contains('show')) {
+      closeWindow();
+    }
+  });
 });
 
 /***/ })

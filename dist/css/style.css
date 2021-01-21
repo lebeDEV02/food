@@ -162,10 +162,6 @@ a {
     font-weight: 300;
     line-height: 36px;
     color: rgba(0, 0, 0, 0.7); }
-  .tabcontent_active {
-    display: block; }
-  .tabcontent_hide {
-    display: none; }
 
 .tabheader {
   width: 280px;
@@ -528,3 +524,9 @@ a {
     display: block;
     width: 280px;
     margin: 0 auto; }
+
+.show {
+  display: block; }
+
+.hide {
+  display: none; }
